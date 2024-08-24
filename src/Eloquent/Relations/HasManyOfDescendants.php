@@ -9,6 +9,8 @@ use Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\Traits\IsOfDescendantsRe
 
 /**
  * @template TRelatedModel of \Illuminate\Database\Eloquent\Model
+ * @template TDeclaringModel of \Illuminate\Database\Eloquent\Model
+ *
  * @extends HasMany<TRelatedModel>
  */
 class HasManyOfDescendants extends HasMany
@@ -18,8 +20,8 @@ class HasManyOfDescendants extends HasMany
     /**
      * Create a new has many of descendants relationship instance.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param TRelatedModel $parent
+     * @param \Illuminate\Database\Eloquent\Builder<TRelatedModel> $query
+     * @param TDeclaringModel $parent
      * @param string $foreignKey
      * @param string $localKey
      * @param bool $andSelf

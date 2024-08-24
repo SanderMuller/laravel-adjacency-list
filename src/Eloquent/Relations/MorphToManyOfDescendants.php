@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @template TRelatedModel of \Illuminate\Database\Eloquent\Model
- * @extends BelongsToManyOfDescendants<TRelatedModel>
+ * @template TDeclaringModel of \Illuminate\Database\Eloquent\Model
+ *
+ * @extends BelongsToManyOfDescendants<TRelatedModel, TDeclaringModel>
  */
 class MorphToManyOfDescendants extends BelongsToManyOfDescendants
 {
@@ -37,8 +39,8 @@ class MorphToManyOfDescendants extends BelongsToManyOfDescendants
     /**
      * Create a new morph to many of descendants relationship instance.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param \Illuminate\Database\Eloquent\Model $parent
+     * @param \Illuminate\Database\Eloquent\Builder<TRelatedModel> $query
+     * @param TDeclaringModel $parent
      * @param string $name
      * @param string $table
      * @param string $foreignPivotKey

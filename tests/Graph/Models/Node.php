@@ -119,6 +119,9 @@ class Node extends Model
         );
     }
 
+    /**
+     * @return HasMany<Post>
+     */
     public function posts(): HasMany
     {
         return $this->hasMany(Post::class, 'node_id');

@@ -9,6 +9,8 @@ use Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\Traits\IsOfDescendantsRe
 
 /**
  * @template TRelatedModel of \Illuminate\Database\Eloquent\Model
+ * @template TDeclaringModel of \Illuminate\Database\Eloquent\Model
+ *
  * @extends BelongsToMany<TRelatedModel>
  */
 class BelongsToManyOfDescendants extends BelongsToMany
@@ -21,8 +23,8 @@ class BelongsToManyOfDescendants extends BelongsToMany
     /**
      * Create a new belongs to many of descendants relationship instance.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param \Illuminate\Database\Eloquent\Model $parent
+     * @param \Illuminate\Database\Eloquent\Builder<TRelatedModel> $query
+     * @param TDeclaringModel $parent
      * @param string $table
      * @param string $foreignPivotKey
      * @param string $relatedPivotKey
