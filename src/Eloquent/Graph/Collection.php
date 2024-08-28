@@ -37,7 +37,7 @@ class Collection extends Base
 
         $depths = $this->pluck($depthName);
 
-        $graph = new static(
+        $tree = new static(
             $this->where($depthName, $depths->min())->values()
         );
 
@@ -50,6 +50,6 @@ class Collection extends Base
             );
         }
 
-        return $graph;
+        return $tree;
     }
 }
