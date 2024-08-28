@@ -38,6 +38,9 @@ class DescendantsTest extends TestCase
         );
     }
 
+    /**
+     * @param class-string<\Staudenmeir\LaravelAdjacencyList\Tests\Graph\Models\Node> $class
+     */
     #[DataProvider(methodName: 'cycleDetectionClassProvider')]
     public function testLazyLoadingWithCycleDetection(string $class, array $exclusions)
     {
@@ -172,6 +175,9 @@ class DescendantsTest extends TestCase
         );
     }
 
+    /**
+     * @param class-string<\Staudenmeir\LaravelAdjacencyList\Tests\Graph\Models\Node> $class
+     */
     #[DataProvider(methodName: 'cycleDetectionClassProvider')]
     public function testEagerLoadingWithCycleDetection(string $class, array $exclusions)
     {

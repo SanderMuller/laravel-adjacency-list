@@ -72,6 +72,9 @@ class Node extends Model
         );
     }
 
+    /**
+     * @return HasOneDeep<Post>
+     */
     public function ancestorPost(): HasOneDeep
     {
         return $this->hasOneDeepFromRelations(
@@ -80,6 +83,9 @@ class Node extends Model
         );
     }
 
+    /**
+     * @return HasManyDeep<Post>
+     */
     public function ancestorPosts(): HasManyDeep
     {
         return $this->hasManyDeepFromRelations(
@@ -88,6 +94,9 @@ class Node extends Model
         );
     }
 
+    /**
+     * @return HasManyDeep<Post>
+     */
     public function ancestorAndSelfPosts(): HasManyDeep
     {
         return $this->hasManyDeepFromRelations(
@@ -96,6 +105,9 @@ class Node extends Model
         );
     }
 
+    /**
+     * @return HasOneDeep<Post>
+     */
     public function descendantPost(): HasOneDeep
     {
         return $this->hasOneDeepFromRelations(
@@ -104,6 +116,9 @@ class Node extends Model
         );
     }
 
+    /**
+     * @return HasManyDeep<Post>
+     */
     public function descendantPosts(): HasManyDeep
     {
         return $this->hasManyDeepFromRelations(
@@ -112,6 +127,9 @@ class Node extends Model
         );
     }
 
+    /**
+     * @return HasManyDeep<Post>
+     */
     public function descendantAndSelfPosts(): HasManyDeep
     {
         return $this->hasManyDeepFromRelations(
@@ -120,6 +138,9 @@ class Node extends Model
         );
     }
 
+    /**
+     * @return HasMany<Post>
+     */
     public function posts(): HasMany
     {
         return $this->hasMany(Post::class, 'node_id');

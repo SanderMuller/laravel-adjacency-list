@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @template TRelatedModel of \Illuminate\Database\Eloquent\Model
  *
  * @extends HasMany<TRelatedModel>
+ *
+ * @mixin \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder<TRelatedModel>
  */
 class Siblings extends HasMany
 {

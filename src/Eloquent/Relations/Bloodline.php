@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Model;
  * @template TRelatedModel of \Illuminate\Database\Eloquent\Model
  *
  * @extends Descendants<TRelatedModel>
+ *
+ * @mixin \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder<TRelatedModel>
  */
 class Bloodline extends Descendants
 {

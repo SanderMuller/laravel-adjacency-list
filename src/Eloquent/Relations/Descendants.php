@@ -15,6 +15,8 @@ use Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\Traits\IsRecursiveRelati
  * @template TRelatedModel of \Illuminate\Database\Eloquent\Model
  *
  * @extends HasMany<TRelatedModel>
+ *
+ * @mixin \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder<TRelatedModel>
  */
 class Descendants extends HasMany implements ConcatenableRelation
 {

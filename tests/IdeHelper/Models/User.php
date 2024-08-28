@@ -7,5 +7,6 @@ use Staudenmeir\LaravelAdjacencyList\Eloquent\HasRecursiveRelationships;
 
 class User extends Model
 {
+    /** @use HasRecursiveRelationships<self> */
     use HasRecursiveRelationships;
 }

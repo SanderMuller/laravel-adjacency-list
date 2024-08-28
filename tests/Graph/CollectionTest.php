@@ -3,6 +3,7 @@
 namespace Staudenmeir\LaravelAdjacencyList\Tests\Graph;
 
 use Illuminate\Database\Eloquent\Builder;
+use Staudenmeir\LaravelAdjacencyList\Eloquent\Graph\Collection;
 use Staudenmeir\LaravelAdjacencyList\Tests\Graph\Models\Node;
 use Staudenmeir\LaravelAdjacencyList\Tests\Graph\Models\NodeWithCycleDetection;
 use Staudenmeir\LaravelAdjacencyList\Tests\Graph\Models\NodeWithCycleDetectionAndStart;
@@ -17,7 +18,8 @@ class CollectionTest extends TestCase
 
         $constraint = fn (Builder $query) => $query->whereIn('id', [2, 3]);
 
-        $nodes = Node::subgraph($constraint)->orderBy('id')->get();
+        /** @var Collection<int, Node> $nodes */
+        $nodes = Node::query()->subgraph($constraint)->orderBy('id')->get();
 
         $graph = $nodes->toTree();
 
@@ -30,6 +32,7 @@ class CollectionTest extends TestCase
 
     public function testToTreeWithRelationship()
     {
+        /** @var Collection<int, Node> $nodes */
         $nodes = Node::find(2)->descendants()->orderBy('id')->get();
 
         $graph = $nodes->toTree();
@@ -49,6 +52,7 @@ class CollectionTest extends TestCase
 
         $constraint = fn (Builder $query) => $query->where('id', 12);
 
+        /** @var Collection<int, Node> $nodes */
         $nodes = NodeWithCycleDetection::subgraph($constraint)->orderBy('id')->get();
 
         $graph = $nodes->toTree();
@@ -69,6 +73,7 @@ class CollectionTest extends TestCase
 
         $constraint = fn (Builder $query) => $query->where('id', 12);
 
+        /** @var Collection<int, Node> $nodes */
         $nodes = NodeWithCycleDetectionAndStart::subgraph($constraint)->orderBy('id')->get();
 
         $graph = $nodes->toTree();
@@ -87,6 +92,7 @@ class CollectionTest extends TestCase
 
         $constraint = fn (Builder $query) => $query->where('id', 1);
 
+        /** @var Collection<int, Node> $nodes */
         $nodes = Node::subgraph($constraint)->where('id', 0)->orderBy('id')->get();
 
         $graph = $nodes->toTree();

@@ -9,17 +9,18 @@ use Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\BelongsToManyOfDescendan
 use Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\HasManyOfDescendants;
 use Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\MorphToManyOfDescendants;
 
+/**
+ * @template TDeclaringModel of \Illuminate\Database\Eloquent\Model
+ */
 trait HasOfDescendantsRelationships
 {
     /**
      * Define a one-to-many relationship of the model's descendants.
      *
-     * @template TRelatedModel of \Illuminate\Database\Eloquent\Model
-     *
-     * @param class-string<TRelatedModel> $related
+     * @param class-string<TDeclaringModel> $related
      * @param string|null $foreignKey
      * @param string|null $localKey
-     * @return \Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\HasManyOfDescendants<TRelatedModel>
+     * @return \Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\HasManyOfDescendants<TDeclaringModel>
      */
     public function hasManyOfDescendants($related, $foreignKey = null, $localKey = null)
     {
@@ -42,16 +43,14 @@ trait HasOfDescendantsRelationships
     /**
      * Define a one-to-many relationship of the model's descendants and itself.
      *
-     * @template TRelatedModel of \Illuminate\Database\Eloquent\Model
-     *
-     * @param class-string<TRelatedModel> $related
+     * @param class-string<TDeclaringModel> $related
      * @param string|null $foreignKey
      * @param string|null $localKey
-     * @return \Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\HasManyOfDescendants<TRelatedModel>
+     * @return \Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\HasManyOfDescendants<TDeclaringModel>
      */
     public function hasManyOfDescendantsAndSelf($related, $foreignKey = null, $localKey = null)
     {
-        /** @var TRelatedModel $instance */
+        /** @var TDeclaringModel $instance */
         $instance = $this->newRelatedInstance($related);
 
         $foreignKey = $foreignKey ?: $this->getForeignKey();
@@ -73,11 +72,11 @@ trait HasOfDescendantsRelationships
      * @template TRelatedModel of Model
      *
      * @param \Illuminate\Database\Eloquent\Builder<TRelatedModel> $query
-     * @param \Illuminate\Database\Eloquent\Model $parent
+     * @param TDeclaringModel $parent
      * @param string $foreignKey
      * @param string $localKey
      * @param bool $andSelf
-     * @return \Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\HasManyOfDescendants<TRelatedModel>
+     * @return \Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\HasManyOfDescendants<TDeclaringModel, TDeclaringModel>
      */
     protected function newHasManyOfDescendants(Builder $query, Model $parent, $foreignKey, $localKey, $andSelf)
     {
@@ -95,7 +94,7 @@ trait HasOfDescendantsRelationships
      * @param string|null $relatedPivotKey
      * @param string|null $parentKey
      * @param string|null $relatedKey
-     * @return \Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\BelongsToManyOfDescendants<TRelatedModel>
+     * @return \Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\BelongsToManyOfDescendants<TDeclaringModel>
      */
     public function belongsToManyOfDescendants(
         $related,
@@ -139,7 +138,7 @@ trait HasOfDescendantsRelationships
      * @param string|null $relatedPivotKey
      * @param string|null $parentKey
      * @param string|null $relatedKey
-     * @return \Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\BelongsToManyOfDescendants<TRelatedModel>
+     * @return \Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\BelongsToManyOfDescendants<TDeclaringModel>
      */
     public function belongsToManyOfDescendantsAndSelf(
         $related,
@@ -178,14 +177,14 @@ trait HasOfDescendantsRelationships
      * @template TRelatedModel of Model
      *
      * @param \Illuminate\Database\Eloquent\Builder<TRelatedModel> $query
-     * @param \Illuminate\Database\Eloquent\Model $parent
+     * @param TDeclaringModel $parent
      * @param string $table
      * @param string $foreignPivotKey
      * @param string $relatedPivotKey
      * @param string $parentKey
      * @param string $relatedKey
      * @param bool $andSelf
-     * @return \Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\BelongsToManyOfDescendants<TRelatedModel>
+     * @return \Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\BelongsToManyOfDescendants<TRelatedModel, TDeclaringModel>
      */
     protected function newBelongsToManyOfDescendants(
         Builder $query,
@@ -222,7 +221,7 @@ trait HasOfDescendantsRelationships
      * @param string|null $parentKey
      * @param string|null $relatedKey
      * @param bool $inverse
-     * @return \Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\MorphToManyOfDescendants<TRelatedModel>
+     * @return \Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\MorphToManyOfDescendants<TDeclaringModel>
      */
     public function morphToManyOfDescendants(
         $related,
@@ -276,7 +275,7 @@ trait HasOfDescendantsRelationships
      * @param string|null $parentKey
      * @param string|null $relatedKey
      * @param bool $inverse
-     * @return \Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\MorphToManyOfDescendants<TRelatedModel>
+     * @return \Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\MorphToManyOfDescendants<TDeclaringModel>
      */
     public function morphToManyOfDescendantsAndSelf(
         $related,
@@ -323,7 +322,7 @@ trait HasOfDescendantsRelationships
      * @template TRelatedModel of Model
      *
      * @param \Illuminate\Database\Eloquent\Builder<TRelatedModel> $query
-     * @param \Illuminate\Database\Eloquent\Model $parent
+     * @param TDeclaringModel $parent
      * @param string $name
      * @param string $table
      * @param string $foreignPivotKey
@@ -332,7 +331,7 @@ trait HasOfDescendantsRelationships
      * @param string $relatedKey
      * @param bool $inverse
      * @param bool $andSelf
-     * @return \Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\MorphToManyOfDescendants<TRelatedModel>
+     * @return \Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\MorphToManyOfDescendants<TRelatedModel, TDeclaringModel>
      */
     protected function newMorphToManyOfDescendants(
         Builder $query,
@@ -372,7 +371,7 @@ trait HasOfDescendantsRelationships
      * @param string|null $relatedPivotKey
      * @param string|null $parentKey
      * @param string|null $relatedKey
-     * @return \Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\MorphToManyOfDescendants<TRelatedModel>
+     * @return \Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\MorphToManyOfDescendants<TDeclaringModel>
      */
     public function morphedByManyOfDescendants(
         $related,
@@ -411,7 +410,7 @@ trait HasOfDescendantsRelationships
      * @param string|null $relatedPivotKey
      * @param string|null $parentKey
      * @param string|null $relatedKey
-     * @return \Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\MorphToManyOfDescendants<TRelatedModel>
+     * @return \Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\MorphToManyOfDescendants<TDeclaringModel>
      */
     public function morphedByManyOfDescendantsAndSelf(
         $related,

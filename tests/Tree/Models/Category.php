@@ -7,6 +7,7 @@ use Staudenmeir\LaravelAdjacencyList\Eloquent\HasRecursiveRelationships;
 
 class Category extends Model
 {
+    /** @use HasRecursiveRelationships<self> */
     use HasRecursiveRelationships;
 
     public $incrementing = false;

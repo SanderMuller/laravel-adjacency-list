@@ -24,6 +24,7 @@ class Collection extends Base
             return $this;
         }
 
+        /** @var TModel $model */
         $model = $this->first();
 
         $parentKeyName = $model->getParentKeyName();

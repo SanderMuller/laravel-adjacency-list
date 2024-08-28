@@ -2,12 +2,14 @@
 
 namespace Staudenmeir\LaravelAdjacencyList\Tests\Tree;
 
+use Staudenmeir\LaravelAdjacencyList\Eloquent\Collection;
 use Staudenmeir\LaravelAdjacencyList\Tests\Tree\Models\User;
 
 class CollectionTest extends TestCase
 {
     public function testToTree()
     {
+        /** @var Collection<int, User> $users */
         $users = User::tree()->orderBy('id')->get();
 
         $tree = $users->toTree();
@@ -21,6 +23,7 @@ class CollectionTest extends TestCase
 
     public function testToTreeWithRelationship()
     {
+        /** @var Collection<int, User> $users */
         $users = User::find(1)->descendants()->orderBy('id')->get();
 
         $tree = $users->toTree();
@@ -32,6 +35,7 @@ class CollectionTest extends TestCase
 
     public function testToTreeWithEmptyCollection()
     {
+        /** @var Collection<int, User> $users */
         $users = User::tree(1)->where('id', 0)->get();
 
         $tree = $users->toTree();

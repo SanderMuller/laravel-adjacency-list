@@ -12,13 +12,16 @@ use Staudenmeir\LaravelAdjacencyList\Query\Grammars\SingleStoreGrammar;
 use Staudenmeir\LaravelAdjacencyList\Query\Grammars\SQLiteGrammar;
 use Staudenmeir\LaravelAdjacencyList\Query\Grammars\SqlServerGrammar;
 
+/**
+ * @template TModel of \Illuminate\Database\Eloquent\Model
+ */
 trait BuildsAdjacencyListQueries
 {
     /**
      * Get the hydrated models without eager loading.
      *
      * @param array $columns
-     * @return \Illuminate\Database\Eloquent\Model[]
+     * @return TModel[]
      */
     public function getModels($columns = ['*'])
     {

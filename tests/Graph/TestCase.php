@@ -288,6 +288,9 @@ abstract class TestCase extends Base
         return Carbon::getTestNow()->format($format);
     }
 
+    /**
+     * @return array{0: class-string<Node>, 1: string[]}[]
+     */
     public static function cycleDetectionClassProvider(): array
     {
         return [

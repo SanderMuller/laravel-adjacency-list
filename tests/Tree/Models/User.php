@@ -10,6 +10,7 @@ use Staudenmeir\EloquentHasManyDeep\HasOneDeep;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 use Staudenmeir\EloquentHasManyDeep\HasTableAlias;
 use Staudenmeir\LaravelAdjacencyList\Eloquent\HasRecursiveRelationships;
+use Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\Ancestors;
 use Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\BelongsToManyOfDescendants;
 use Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\HasManyOfDescendants;
 use Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\MorphToManyOfDescendants;
@@ -24,10 +25,12 @@ use Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\MorphToManyOfDescendants
  * @property-read string $path
  * @property-read \Staudenmeir\LaravelAdjacencyList\Tests\Tree\Models\Post|null $ancestorPost
  * @property-read \Staudenmeir\LaravelAdjacencyList\Tests\Tree\Models\Post|null $descendantPost
+ * @property-read \Staudenmeir\LaravelAdjacencyList\Eloquent\Collection<int, self> $ancestorDirectories
  */
 class User extends Model
 {
     use HasRelationships;
+    /** @use HasRecursiveRelationships<self> */
     use HasRecursiveRelationships {
         getCustomPaths as baseGetCustomPaths;
     }
@@ -95,6 +98,15 @@ class User extends Model
         );
     }
 
+    public function ancestorDirectories(): Ancestors
+    {
+        return $this->ancestorsAndSelf()
+            ->where('test', 'test')
+            ->hasParent()
+            ->where('test', 'test')
+            ->breadthFirst();
+    }
+
     /**
      * @return HasManyDeep<Post>
      */
@@ -140,7 +152,7 @@ class User extends Model
     }
 
     /**
-     * @return HasManyOfDescendants<Post>
+     * @return HasManyOfDescendants<Post, self>
      */
     public function posts(): HasManyOfDescendants
     {
@@ -148,7 +160,7 @@ class User extends Model
     }
 
     /**
-     * @return HasManyOfDescendants<Post>
+     * @return HasManyOfDescendants<Post, $this>
      */
     public function postsAndSelf(): HasManyOfDescendants
     {
@@ -156,7 +168,7 @@ class User extends Model
     }
 
     /**
-     * @return BelongsToManyOfDescendants<Role>
+     * @return BelongsToManyOfDescendants<Role, $this>
      */
     public function roles(): BelongsToManyOfDescendants
     {
@@ -164,7 +176,7 @@ class User extends Model
     }
 
     /**
-     * @return BelongsToManyOfDescendants<Role>
+     * @return BelongsToManyOfDescendants<Role, $this>
      */
     public function rolesAndSelf(): BelongsToManyOfDescendants
     {
@@ -172,7 +184,7 @@ class User extends Model
     }
 
     /**
-     * @return MorphToManyOfDescendants<Tag>
+     * @return MorphToManyOfDescendants<Tag, self>
      */
     public function tags(): MorphToManyOfDescendants
     {
@@ -180,7 +192,7 @@ class User extends Model
     }
 
     /**
-     * @return MorphToManyOfDescendants<Tag>
+     * @return MorphToManyOfDescendants<Tag, self>
      */
     public function tagsAndSelf(): MorphToManyOfDescendants
     {
@@ -188,7 +200,7 @@ class User extends Model
     }
 
     /**
-     * @return MorphToManyOfDescendants<Video>
+     * @return MorphToManyOfDescendants<Video, self>
      */
     public function videos(): MorphToManyOfDescendants
     {
@@ -196,7 +208,7 @@ class User extends Model
     }
 
     /**
-     * @return MorphToManyOfDescendants<Video>
+     * @return MorphToManyOfDescendants<Video, self>
      */
     public function videosAndSelf(): MorphToManyOfDescendants
     {
